@@ -1,0 +1,22 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --import=tsx --watch --env-file=.env ./src/index.ts",
+    "buid": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
