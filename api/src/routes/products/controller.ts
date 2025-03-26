@@ -1,25 +1,79 @@
 import { Request, Response } from "express";
+import { eq } from "drizzle-orm";
+import { db } from "../../db";
+import { productsTable } from "../../db/productsSchema";
 
-export function list(req: Request, res: Response) {
-  res.send(`Listing products...`);
+export async function list(req: Request, res: Response) {
+  try {
+    const products = await db.select().from(productsTable);
+    res.status(200).json(products);
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
 }
 
-export function details(req: Request, res: Response) {
-  res.send(`Displaying details of product#${req.params.id}`);
+export async function details(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const [product] = await db
+      .select()
+      .from(productsTable)
+      .where(eq(productsTable.id, id));
+
+    if (!product) {
+      res.status(404).json({ message: `Product ${id} was not found.` });
+    } else {
+      res.status(200).json(product);
+    }
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
 }
 
-export function create(req: Request, res: Response) {
-  console.log(req.body);
-
-  res.send(
-    `Creating a new product with the following data: ${req.body.name} ${req.body.price}`
-  );
+export async function create(req: Request, res: Response) {
+  try {
+    const [product] = await db
+      .insert(productsTable)
+      .values(req.cleanBody as any)
+      .returning();
+    res.status(201).json(product);
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
 }
 
-export function remove(req: Request, res: Response) {
-  res.send(`Removing product#${req.params.id}`);
+export async function remove(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const [product] = await db
+      .delete(productsTable)
+      .where(eq(productsTable.id, id))
+      .returning();
+    if (!product) {
+      res.status(404).json({ message: `Product ${id} was not found.` });
+    } else {
+      res.status(200).json(product);
+    }
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
 }
 
-export function update(req: Request, res: Response) {
-  res.send(`Updating product#${req.params.id}`);
+export async function update(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const [product] = await db
+      .update(productsTable)
+      .set(req.cleanBody)
+      .where(eq(productsTable.id, id))
+      .returning();
+
+    if (!product) {
+      res.status(404).json({ message: `Product ${id} was not found.` });
+    } else {
+      res.status(200).json(product);
+    }
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
 }
