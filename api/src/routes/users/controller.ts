@@ -3,8 +3,8 @@ import { hash, compare } from "bcryptjs";
 import { eq, and } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 
-import { userTable } from "../../db/usersSchema";
-import { db } from "../../db";
+import { userTable } from "../../db/usersSchema.js";
+import { db } from "../../db/index.js";
 
 export async function list(req: Request, res: Response) {
   try {
@@ -64,7 +64,7 @@ export async function login(req: Request, res: Response) {
         // @ts-ignore
         process.env.JWT_SECRET,
         {
-          expiresIn: "10m",
+          expiresIn: "1d",
         }
       );
       res.status(200).json({

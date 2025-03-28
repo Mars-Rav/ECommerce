@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { list, details, create, remove, update } from "./controller";
+import { list, details, create, remove, update } from "./controller.js";
 import {
   authenticate,
   authenticateRole,
-} from "../../middleware/authentication";
+} from "../../middleware/authentication.js";
 
 import {
   insertProductSchema,
   updateProductsSchema,
-} from "../../db/productsSchema";
-import { validateData } from "../../middleware/validation";
+} from "../../db/productsSchema.js";
+import { validateData } from "../../middleware/validation.js";
 
 const router = Router();
 

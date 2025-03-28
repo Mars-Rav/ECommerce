@@ -31,6 +31,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
 
 export function authenticateRole(role: string) {
   role = role.toLowerCase();
+
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       // @ts-ignore

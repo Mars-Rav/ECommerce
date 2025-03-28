@@ -2,7 +2,7 @@ import { pgTable, integer, varchar, date, text } from "drizzle-orm/pg-core";
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
 
 export const userTable = pgTable("user", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity().unique(),
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
   fullname: varchar({ length: 255 }).notNull().unique(),
   email: varchar({ length: 255 }).notNull().unique(),
   password: varchar({ length: 255 }).notNull(),

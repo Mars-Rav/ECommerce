@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
-import { db } from "../../db";
-import { productsTable } from "../../db/productsSchema";
+import { db } from "../../db/index.js";
+import { productsTable } from "../../db/productsSchema.js";
 
 export async function list(req: Request, res: Response) {
   try {
@@ -36,6 +36,7 @@ export async function create(req: Request, res: Response) {
       .insert(productsTable)
       .values(req.cleanBody as any)
       .returning();
+
     res.status(201).json(product);
   } catch (e: any) {
     res.status(500).send(e.message);
