@@ -31,6 +31,9 @@ export const orderItems = pgTable("orderItems", {
     .notNull(),
   quantity: integer().default(1).notNull(),
   price: doublePrecision().notNull(),
+  sellerId: integer()
+    .references(() => userTable.id)
+    .notNull(),
 });
 
 export const ordersInsertSchema = createInsertSchema(ordersTable).omit({
@@ -41,6 +44,7 @@ export const ordersInsertSchema = createInsertSchema(ordersTable).omit({
 export const insertOrderItemSchema = createInsertSchema(orderItems).omit({
   orderId: true,
   price: true,
+  sellerId: true,
 });
 
 export const insertOrderWithItemsSchema = z.object({

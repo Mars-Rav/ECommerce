@@ -15,6 +15,27 @@
       "when": 1743173464168,
       "tag": "0001_purple_princess_powerful",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743193888328,
+      "tag": "0002_equal_prism",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743195258575,
+      "tag": "0003_gray_vance_astro",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1743195869934,
+      "tag": "0004_lying_james_howlett",
+      "breakpoints": true
     }
   ]
 }

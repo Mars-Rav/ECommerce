@@ -32,6 +32,7 @@ export async function details(req: Request, res: Response) {
 
 export async function create(req: Request, res: Response) {
   try {
+    req.cleanBody.seller = Number(req.userId);
     const [product] = await db
       .insert(productsTable)
       .values(req.cleanBody as any)

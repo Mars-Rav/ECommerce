@@ -7,7 +7,7 @@ import { list, details, create, update, remove } from "./controller.js";
 
 const router = Router();
 
-router.get("/", list);
+router.get("/", authenticate, list);
 router.get("/:id", details);
 router.post(
   "/",
